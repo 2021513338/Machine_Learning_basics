@@ -22,7 +22,13 @@ def LR_model(X, y, n_splits, n_repeats, random_state=None):
             X_train, X_test = X[train_index], X[test_index]
             y_train, y_test = y[train_index], y[test_index]
             max_iter_value = len(X_train)  # Set max_iter to the number of samples in X_train
-            lr_classifier = LogisticRegression(max_iter=max_iter_value)
+            lr_classifier = LogisticRegression(max_iter=max_iter_value)#默认L2正则化
+            #L2正则化：
+            #lr_classifier = LogisticRegression(max_iter=max_iter_value, penalty='l2', C=1.0)
+            #L1正则化（使用 liblinear 解算器）：
+            #lr_classifier = LogisticRegression(max_iter=max_iter_value, penalty='l1', C=1.0, solver='liblinear')
+            #混合正则化（l1_ratio控制 L1 和 L2 正则化的比例，使用saga解算器）：
+            #lr_classifier = LogisticRegression(max_iter=max_iter_value, penalty='elasticnet', C=1.0, l1_ratio=0.5,solver='saga')
             lr_classifier.fit(X_train, y_train)
 
             y_pred = lr_classifier.predict(X_test)

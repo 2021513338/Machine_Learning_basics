@@ -25,6 +25,10 @@ def SVM_model(X, y, n_splits, n_repeats, random_state=None):
             y_train, y_test = y[train_index], y[test_index]
 
             svm_classifier = SVC(kernel='rbf', C=1.0, gamma='scale', random_state=42)
+            #使用l2正则化（默认）：
+            #svm_classifier = SVC(kernel='linear', C=0.1)
+            #使用l1正则化：
+            #svm_classifier = SVC(kernel='linear', C=1.0, penalty='l1', solver='liblinear')
             svm_classifier.set_params(probability=True)
             svm_classifier.fit(X_train, y_train)
 
